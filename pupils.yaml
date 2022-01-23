@@ -1,0 +1,21 @@
+Baruh:
+  is_sick: false
+  quantity: 5
+Igor:
+  is_sick: false
+  quantity: 5
+Jane:
+  is_sick: true
+  quantity: 5
+John:
+  is_sick: false
+  quantity: 5
+Lena:
+  quantity: 5
+  sick: false
+Vatman:
+  is_sick: false
+  quantity: 4
+Zalman:
+  is_sick: false
+  quantity: 4

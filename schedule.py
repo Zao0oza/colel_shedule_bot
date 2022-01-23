@@ -1,9 +1,4 @@
 # создает расписание дежурств на пятидневку
-pupildict = {'John': 1, 'Peter': 1, 'Vova': 1, 'Zalman': 0, 'Igor': 0, 'Lena': 1, 'Baruh': 0, 'Inna': 1}
-pupildict2 = {'John': 1, 'Peter': 1, 'Vova': 1}
-sched = list(pupildict.keys())
-
-
 def colel_schedule(pupildict: dict):
     i = 0
     """
@@ -29,9 +24,3 @@ def colel_schedule(pupildict: dict):
     return pupilres
 
 
-print(colel_schedule(pupildict))
-print(colel_schedule(pupildict))
-print(colel_schedule(pupildict))
-print(colel_schedule(pupildict))
-print(colel_schedule(pupildict))
-print(colel_schedule(pupildict))
