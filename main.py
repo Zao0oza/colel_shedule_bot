@@ -1,18 +1,15 @@
-import logging
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Text
 from bottoken import token, google_url
 import gspread
 
 
-gc = gspread.service_account(filename='regal-eon-313211-848c0cdd83c0.json')
+gc = gspread.service_account(filename='regal-eon-313211-848c0cdd83c0.json') # ключ для google api
 
 # Объект бота
 bot = Bot(token=token)
 # Диспетчер для бота
 dp = Dispatcher(bot)
-# Включаем логирование, чтобы не пропустить важные сообщения
-logging.basicConfig(level=logging.INFO)
 
 
 # функция отвечающая за распиание
@@ -24,7 +21,7 @@ def colel_schedule():
     """
     try:
         wks = gc.open_by_url(
-            google_url)
+            google_url)# url google документа
         worksheet = wks.get_worksheet(0)
         list_of_dicts = worksheet.get_all_values()
         pupildict = {v: [k, j] for v, k, j in list_of_dicts[1:]}
