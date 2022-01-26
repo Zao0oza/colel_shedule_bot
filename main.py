@@ -77,6 +77,10 @@ async def cmd_start(message: types.Message):
 
 @dp.message_handler(Text(equals="Расписание"))
 async def schedule_actual(message: types.Message):
+    '''
+    Выдает страое расписание если есть,
+    если нет генерирует новое
+    '''
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = ["Новое расписание", "Прошлые расписания", "Назад"]
     keyboard.add(*buttons)
@@ -93,14 +97,14 @@ async def schedule_actual(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == "Список учеников")
 async def pupil_list(message: types.Message):
-    # даем ссылку на таблицу с учениками
+    # дает ссылку на таблицу с учениками
     await message.answer(
         'https://docs.google.com/spreadsheets/d/1ljIQbUyL_RMii47joDgWRfXr4q15e4mSw1oA1ZxI8D0/edit#gid=0')
 
 
 @dp.message_handler(lambda message: message.text == "Новое расписание")
 async def new_schedule(message: types.Message):
-    # даем ссылку на таблицу с учениками
+    # генерирует новое расписание
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = ["Новое расписание", "Прошлые расписания", "Назад"]
     keyboard.add(*buttons)
@@ -109,7 +113,7 @@ async def new_schedule(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == "Прошлые расписания")
 async def new_schedule(message: types.Message):
-    # даем ссылку на таблицу с учениками
+    # возращает предыдущие расписания
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = ["Новое расписание", "Прошлые расписания", "Назад"]
     keyboard.add(*buttons)
