@@ -5,11 +5,8 @@ import gspread
 import datetime
 import yaml
 
-gc = gspread.service_account(filename='regal-eon-313211-848c0cdd83c0.json')  # ключ для google api
-
-# Объект бота
+gc = gspread.service_account(filename='regal-eon-313211-848c0cdd83c0.json')  # файл ключ для google api
 bot = Bot(token=token)
-# Диспетчер для бота
 dp = Dispatcher(bot)
 
 
@@ -78,8 +75,8 @@ async def cmd_start(message: types.Message):
 @dp.message_handler(Text(equals="Расписание"))
 async def schedule_actual(message: types.Message):
     '''
-    Выдает страое расписание если есть,
-    если нет генерирует новое
+    Возвращает старое расписание,
+    Если расписание отсутсвует генерирует новое
     '''
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = ["Новое расписание", "Прошлые расписания", "Назад"]
@@ -97,14 +94,18 @@ async def schedule_actual(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == "Список учеников")
 async def pupil_list(message: types.Message):
-    # дает ссылку на таблицу с учениками
+   '''
+    Возвращает ссылку на таблицу с учениками
+    '''
     await message.answer(
         'https://docs.google.com/spreadsheets/d/1ljIQbUyL_RMii47joDgWRfXr4q15e4mSw1oA1ZxI8D0/edit#gid=0')
 
 
 @dp.message_handler(lambda message: message.text == "Новое расписание")
 async def new_schedule(message: types.Message):
-    # генерирует новое расписание
+    '''
+    Генерирует и отправляет новое расписание
+    '''
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = ["Новое расписание", "Прошлые расписания", "Назад"]
     keyboard.add(*buttons)
@@ -113,7 +114,9 @@ async def new_schedule(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == "Прошлые расписания")
 async def new_schedule(message: types.Message):
-    # возращает предыдущие расписания
+    """
+    Возращает сохраненные предыдущие расписания из YAML файла
+    """
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = ["Новое расписание", "Прошлые расписания", "Назад"]
     keyboard.add(*buttons)
@@ -123,7 +126,7 @@ async def new_schedule(message: types.Message):
             for row in res_schedule:
                 await message.answer(' '.join(map(str, row)), reply_markup=keyboard)
     except:
-        await message.answer("отсутствуют")
+        await message.answer("Старые расписания отсутствуют")
 
 
 if __name__ == "__main__":
